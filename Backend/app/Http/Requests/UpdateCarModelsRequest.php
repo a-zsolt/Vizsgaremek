@@ -12,7 +12,7 @@ class UpdateCarModelsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,13 @@ class UpdateCarModelsRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('model');
         return [
-            //
+            'name' => 'sometimes|required|string|unique:car_models,name,' . $id . '|max:255',
+            'year' => 'sometimes|required|string|max:4',
+            'description' => 'sometimes|required|string',
+            'base_price' => 'sometimes|required|integer|min:0',
+            'model_file' => 'sometimes|required|string',
         ];
     }
 }

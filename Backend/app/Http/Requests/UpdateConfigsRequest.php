@@ -12,7 +12,7 @@ class UpdateConfigsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,13 @@ class UpdateConfigsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'sometimes|required|exists:users,id',
+            'car_model_id' => 'sometimes|required|exists:car_models,id',
+            'color_option_id' => 'sometimes|required|exists:color__options,id',
+            'wheel_option_id' => 'sometimes|required|exists:wheel__options,id',
+            'interior_option_id' => 'sometimes|required|exists:interior__options,id',
+            'accessory_id' => 'sometimes|required|exists:accessories,id',
+            'total_price' => 'sometimes|required|integer|min:0',
         ];
     }
 }
