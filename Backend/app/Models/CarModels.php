@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CarModels extends Model
 {
@@ -18,6 +19,11 @@ class CarModels extends Model
         'base_price',
         'model_file',
     ];
+
+    public function carSpecs(): HasOne
+    {
+        return $this->hasOne(CarSpecs::class, 'car_model_id');
+    }
 
     public function colorOptions(): HasMany
     {
