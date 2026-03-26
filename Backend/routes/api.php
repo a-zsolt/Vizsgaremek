@@ -4,8 +4,6 @@ use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\CarModelController;
 use App\Http\Controllers\api\ConfigController;
 use App\Http\Controllers\api\OrderController;
-use App\Http\Requests\auth\LoginAuthRequest;
-use App\Http\Requests\auth\RegisterAuthRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,18 +12,21 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::apiResource('configs', ConfigController::class);
+Route::post('register', [AuthController::class, 'register']);
 
-Route::apiResource('orders', OrderController::class);
+Route::post('login', [AuthController::class, 'login']);
 
-Route::post('register', [RegisterAuthRequest::class, 'register']);
+// Public read-only routes (no auth required)
+Route::apiResource('configs', ConfigController::class)->only(['index', 'show']);
+Route::apiResource('orders', OrderController::class)->only(['index', 'show']);
+Route::apiResource('models', CarModelController::class)->only(['index', 'show']);
 
-Route::post('login', [LoginAuthRequest::class, 'login']);
-
+// Protected routes (auth required)
 Route::middleware('auth:sanctum')->group( function () {
-   Route::post('logout', [AuthController::class, 'logout']);
-   Route::get('me', [AuthController::class, 'me']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('me', [AuthController::class, 'me']);
 
-    Route::apiResource('models', CarModelController::class);
-
+    Route::apiResource('configs', ConfigController::class)->except(['index', 'show']);
+    Route::apiResource('orders', OrderController::class)->except(['index', 'show']);
+    Route::apiResource('models', CarModelController::class)->except(['index', 'show']);
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\CarModels;
+use Illuminate\Console\View\Components\Task;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +14,7 @@ class StoreCarModelsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can('manager', CarModels::class);
+        return $this->user()->tokenCan('manager');
     }
 
     /**
@@ -25,7 +26,7 @@ class StoreCarModelsRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:car_models,name|max:255',
-            'year' => 'required|string|max:4',
+            'year' => 'required|string|max:9',
             'description' => 'required|string',
             'base_price' => 'required|integer|min:0',
             'model_file' => 'required|string',

@@ -25,6 +25,7 @@ class RegisterAuthRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'role' => 'in:user,admin,manager',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8'
         ];
@@ -36,6 +37,8 @@ class RegisterAuthRequest extends FormRequest
             'name.required' => 'The name is required.',
             'name.string' => 'The name must be a text string.',
             'name.max' => 'The name may not be greater than :max characters.',
+
+            'role.in' => 'The role must be one of: user, admin, manager.',
 
             'email.required' => 'The email address is required.',
             'email.email' => 'Please provide a valid email address.',

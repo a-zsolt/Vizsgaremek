@@ -13,7 +13,7 @@ class UpdateOrdersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can('manager', Orders::class);
+        return $this->user()->tokenCan('manager');
 
     }
 

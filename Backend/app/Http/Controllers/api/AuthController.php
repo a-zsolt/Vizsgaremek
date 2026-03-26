@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Nette\Schema\ValidationException;
+use Illuminate\validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -19,6 +19,7 @@ class AuthController extends Controller
             "name" => $request->validated(["name"]),
             "email" => $request->validated(["email"]),
             "password" => Hash::make($request->validated(["password"])),
+            "role" => $request->validated(["role"]) ?? 'user'
         ]);
         return response()->json([
             "success" => true,
@@ -42,7 +43,7 @@ class AuthController extends Controller
             $abilities = ['user', 'manager'];
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token', $abilities)->plainTextToken;
 
         return response()->json([
             "success" => true,
@@ -52,7 +53,7 @@ class AuthController extends Controller
         ]);
     }
     public function logout(Request $request){
-        $request->user()->currentAccesToken()->delete();
+        $request->user()->currentAccessToken()->delete();
 
         return response()->json([
             "success" => true,

@@ -13,7 +13,7 @@ class StoreOrdersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can('user', Orders::class);
+        return $this->user()->tokenCan('user');
     }
 
     /**

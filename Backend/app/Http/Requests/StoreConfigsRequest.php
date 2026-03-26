@@ -14,7 +14,7 @@ class StoreConfigsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can('user', Configs::class);
+        return $this->user()->tokenCan('user');
 
     }
 
