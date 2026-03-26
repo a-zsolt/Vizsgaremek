@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
+use App\Models\Configs;
 use App\Http\Requests\StoreOrdersRequest;
 use App\Http\Requests\UpdateOrdersRequest;
 
@@ -38,7 +39,15 @@ class OrderController extends Controller
     public function store(StoreOrdersRequest $request)
     {
         try {
-            $order = Orders::create($request->validated());
+            $data = $request->validated();
+            unset($data['total_price']);
+
+            $config = Configs::findOrFail($data['config_id']);
+            $total = (int) ($config->total_price ?? 0);
+
+            $order = new Orders($data);
+            $order->total_price = $total;
+            $order->save();
         }
         catch (\Exception $e) {
             return response()->json([
@@ -75,7 +84,16 @@ class OrderController extends Controller
     public function update(UpdateOrdersRequest $request, Orders $order)
     {
         try {
-            $order = Orders::update($request->validated());
+            $data = $request->validated();
+            unset($data['total_price']);
+
+            if (array_key_exists('config_id', $data)) {
+                $config = Configs::findOrFail($data['config_id']);
+                $order->total_price = (int) ($config->total_price ?? 0);
+            }
+
+            $order->fill($data);
+            $order->save();
         }
         catch (\Exception $e) {
             return response()->json([

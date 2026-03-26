@@ -12,8 +12,9 @@ class Orders extends Model
         'user_id',
         'config_id',
         'status',
-        'total_price',
     ];
+
+    protected $guarded = ['total_price'];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
