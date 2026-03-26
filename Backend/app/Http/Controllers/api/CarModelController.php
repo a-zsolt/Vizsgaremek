@@ -91,7 +91,7 @@ class CarModelController extends Controller
     public function update(UpdateCarModelsRequest $request, CarModels $model)
     {
         try {
-            $model = CarModels::update($request->validated());
+            $model->update($request->validated());
         }
         catch (\Exception $e) {
             return response()->json([

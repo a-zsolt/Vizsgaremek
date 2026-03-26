@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\CarModels;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCarModelsRequest extends FormRequest
 {
@@ -26,7 +27,11 @@ class UpdateCarModelsRequest extends FormRequest
     {
         $id = $this->route('model');
         return [
-            'name' => 'string|unique:car_models,name,' . $id . '|max:255',
+            'name' => [
+                'string',
+                'max:255',
+                Rule::unique('car_models', 'name')->ignore($this->route('model')->id),
+            ],
             'year' => 'string|max:9',
             'description' => 'string',
             'base_price' => 'integer|min:0',
