@@ -26,9 +26,7 @@ class CarModelController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'List all vehicles',
-            'data' => [
-                $models
-            ],
+            'models' => $models,
             'count' => $models->count()
         ], 200);
     }
