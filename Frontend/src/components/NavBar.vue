@@ -1,15 +1,109 @@
 <script>
+import { http } from "@/utils/http.js";
+import {useRouter} from "vue-router";
+
 export default {
-  name: "NavBar"
+  name: "NavBar",
+  data() {
+    return {
+      error: null,
+      routes: [],
+      isLoggedIn: !!localStorage.getItem('token'),
+    }
+  },
+  computed: {
+    publicLinks() {
+      return this.routes.filter(
+          (r) =>
+              r.meta &&
+              !r.meta.guestOnly &&
+              !r.meta.requireAuth &&
+              r.meta.title &&
+              !r.redirect
+      );
+    },
+
+    guestLinks() {
+      return this.routes.filter(
+          (r) =>
+              r.meta &&
+              r.meta.guestOnly &&
+              r.meta.title
+      );
+    },
+
+    dashboardRoute() {
+      return this.routes.find((r) => r.name === 'dashboard') || {};
+    },
+
+    authLinks() {
+      const children = this.dashboardRoute.children || [];
+      return children.filter(
+          (c) => c.meta && c.meta.title && !c.redirect
+      );
+    },
+  },
+  methods: {
+    getAllRoutes() {
+      this.routes = useRouter().getRoutes();
+    },
+    async logOut() {
+      try {
+        await http.post('/api/auth/logout');
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('abilities');
+
+        this.isLoggedIn = false
+        this.$router.push({ name: "home" });
+      } catch (e) {
+        this.error = e;
+      }
+    }
+  },
+  mounted() {
+    this.getAllRoutes();
+  }
 }
 </script>
 
 <template>
   <nav class="navbar bg-body-tertiary">
-    <div class="container d-flex flex-column align-items-center">
+    <div class="container-fluid d-flex flex-row align-items-center">
+      <!-- Aside menu -->
+      <button class="btn"><i class="bi bi-list"></i></button>
+
+      <!-- Centered brand icon -->
       <RouterLink class="navbar-brand" :to="{ name: 'home' }">
         <img class="brand-logo" src="/Brand_light.png" alt="Bootstrap">
       </RouterLink>
+
+      <!-- Profile menu (LoggedIn) -->
+      <div v-if="isLoggedIn" class="dropdown text-end">
+        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
+          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" />
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end text-small">
+          <li><a class="dropdown-item" href="#">Admin Dashboard</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><button class="dropdown-item" @click="logOut">Sign out</button></li>
+        </ul>
+      </div>
+
+      <!-- Profile menu (Guest) -->
+      <div v-else class="dropdown text-end">
+        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+           aria-expanded="false">
+          <i class="bi bi-person"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end text-small">
+          <li><RouterLink class="dropdown-item" :to="{name: 'register'}">Register</RouterLink></li>
+          <li><hr class="dropdown-divider"/></li>
+          <li><RouterLink class="dropdown-item" :to="{name: 'login'}">Log In</RouterLink></li>
+        </ul>
+      </div>
     </div>
   </nav>
 </template>

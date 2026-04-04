@@ -14,7 +14,7 @@ Route::get('/user', function (Request $request) {
 
 Route::post('register', [AuthController::class, 'register']);
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'login']);
 
 // Public read-only routes (no auth required)
 Route::apiResource('configs', ConfigController::class)->only(['index', 'show']);
@@ -23,10 +23,19 @@ Route::apiResource('models', CarModelController::class)->only(['index', 'show'])
 
 // Protected routes (auth required)
 Route::middleware('auth:sanctum')->group( function () {
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::get('me', [AuthController::class, 'me']);
 
     Route::apiResource('configs', ConfigController::class)->except(['index', 'show']);
     Route::apiResource('orders', OrderController::class)->except(['index', 'show']);
     Route::apiResource('models', CarModelController::class)->except(['index', 'show']);
+});
+
+// Token check
+Route::middleware('auth:sanctum')->get('/auth/check', function (Request $request) {
+    return response()->json([
+        'valid' => true,
+        'user' => $request->user(),
+        'abilities' => $request->user()->currentAccessToken()->abilities,
+    ]);
 });

@@ -39,7 +39,10 @@ const routes = [
         path: 'login',
         name: 'login',
         component: () => import('@/views/auth/LoginView.vue'),
-        meta: { title: 'Login' }
+        meta: {
+          title: 'Login',
+          guestOnly: true
+        }
       },
       {
         path: 'register',
@@ -141,6 +144,46 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 
+})
+
+function isLoggedIn() {
+  return !!localStorage.getItem('token');
+}
+
+function getAbilities() {
+  try {
+    return JSON.parse(localStorage.getItem('abilities')) || []
+  } catch {
+    return []
+  }
+}
+
+function hasRole(roles) {
+  const abilities = getAbilities()
+  return roles.some(role => abilities.includes(role))
+}
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(r => r.meta.requiresAuth)
+  const guestOnly = to.matched.some(r => r.meta.guestOnly)
+  const requiredRoles = to.matched.map(r => r.meta.roles).find(r => r)
+
+  // Not logged in > redirect to login
+  if (requiresAuth && !isLoggedIn()) {
+    return next({ name: 'login', query: { redirect: to.fullPath } })
+  }
+
+  // Logged in but trying to access guest-only page (login/register)
+  if (guestOnly && isLoggedIn()) {
+    return next({ name: 'home' })
+  }
+
+  // Logged in but wrong role > 403a
+  if (requiredRoles && !hasRole(requiredRoles)) {
+    return next({ name: 'not-authorized' })
+  }
+
+  return next()
 })
 
 router.afterEach(to=>{
