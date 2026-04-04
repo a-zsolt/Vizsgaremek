@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-
+  <RouterView/>
 </template>
 
 <style scoped>
