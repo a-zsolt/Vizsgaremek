@@ -8,12 +8,12 @@ export default {
       try {
         const resp = await http.get('/api/auth/check')
 
-        this.$root.user = resp.data.user
-
         localStorage.setItem('abilities', JSON.stringify(resp.data.abilities))
+        localStorage.setItem('user', JSON.stringify(resp.data.user));
       } catch {
         localStorage.removeItem('token')
         localStorage.removeItem('abilities')
+        localStorage.removeItem('user')
       }
     }
   }

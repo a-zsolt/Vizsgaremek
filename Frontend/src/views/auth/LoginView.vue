@@ -26,6 +26,8 @@ export default {
         if (resp.data.success){
           localStorage.setItem('token', resp.data.token)
           localStorage.setItem('abilities', JSON.stringify(resp.data.abilities))
+          localStorage.setItem('user', JSON.stringify(resp.data.user));
+
           const redirectTo = this.$route.query.redirect || {name: "home"};
           this.$router.push(redirectTo);
         }

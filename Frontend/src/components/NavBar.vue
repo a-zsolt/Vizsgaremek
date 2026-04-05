@@ -12,35 +12,10 @@ export default {
     }
   },
   computed: {
-    publicLinks() {
-      return this.routes.filter(
-          (r) =>
-              r.meta &&
-              !r.meta.guestOnly &&
-              !r.meta.requireAuth &&
-              r.meta.title &&
-              !r.redirect
-      );
-    },
-
-    guestLinks() {
-      return this.routes.filter(
-          (r) =>
-              r.meta &&
-              r.meta.guestOnly &&
-              r.meta.title
-      );
-    },
-
-    dashboardRoute() {
-      return this.routes.find((r) => r.name === 'dashboard') || {};
-    },
-
-    authLinks() {
-      const children = this.dashboardRoute.children || [];
-      return children.filter(
-          (c) => c.meta && c.meta.title && !c.redirect
-      );
+    user() {
+      this.$route;
+      const raw = localStorage.getItem('user');
+      return raw ? JSON.parse(raw) : null;
     },
   },
   methods: {
@@ -53,6 +28,7 @@ export default {
 
         localStorage.removeItem('token');
         localStorage.removeItem('abilities');
+        localStorage.removeItem('user')
 
         this.isLoggedIn = false
         this.$router.push({ name: "home" });
@@ -84,6 +60,8 @@ export default {
           <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" />
         </a>
         <ul class="dropdown-menu dropdown-menu-end text-small">
+          <li><span class="dropdown-item-text">{{ user?.name }}</span></li>
+          <li><hr class="dropdown-divider" /></li>
           <li><a class="dropdown-item" href="#">Admin Dashboard</a></li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
           <li><a class="dropdown-item" href="#">Profile</a></li>
