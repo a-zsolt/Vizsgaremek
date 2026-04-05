@@ -24,7 +24,6 @@ Route::apiResource('models', CarModelController::class)->only(['index', 'show'])
 // Protected routes (auth required)
 Route::middleware('auth:sanctum')->group( function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
-    Route::get('me', [AuthController::class, 'me']);
 
     Route::apiResource('configs', ConfigController::class)->except(['index', 'show']);
     Route::apiResource('orders', OrderController::class)->except(['index', 'show']);
@@ -32,10 +31,4 @@ Route::middleware('auth:sanctum')->group( function () {
 });
 
 // Token check
-Route::middleware('auth:sanctum')->get('/auth/check', function (Request $request) {
-    return response()->json([
-        'valid' => true,
-        'user' => $request->user(),
-        'abilities' => $request->user()->currentAccessToken()->abilities,
-    ]);
-});
+Route::middleware('auth:sanctum')->get('/auth/check', [AuthController::class, 'check']);

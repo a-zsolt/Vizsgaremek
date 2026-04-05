@@ -48,6 +48,7 @@ class AuthController extends Controller
         return response()->json([
             "success" => true,
             "message" => "User logged in successfully",
+            "user" => $user,
             "abilities" => $abilities,
             "token" => $token,
         ]);
@@ -60,11 +61,11 @@ class AuthController extends Controller
             "message" => "User logged out successfully",
         ]);
     }
-    public function me(Request $request){
+    public function check(Request $request){
         return response()->json([
-            "success" => true,
-            "message" => "User logged in successfully",
-            "user" => $request->user()
-        ], 200);
+            'valid' => true,
+            'user' => $request->user(),
+            'abilities' => $request->user()->currentAccessToken()->abilities,
+        ]);
     }
 }
