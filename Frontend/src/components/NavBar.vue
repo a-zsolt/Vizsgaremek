@@ -1,14 +1,17 @@
 <script>
 import { http } from "@/utils/http.js";
 import {useRouter} from "vue-router";
+import ModelCard from "@/components/ModelCard.vue";
 
 export default {
   name: "NavBar",
+  components: {ModelCard},
   data() {
     return {
       error: null,
       routes: [],
       isLoggedIn: !!localStorage.getItem('token'),
+      carModels: []
     }
   },
   computed: {
@@ -35,10 +38,30 @@ export default {
       } catch (e) {
         this.error = e;
       }
+    },
+    async getCarModels() {
+      this.isLoading = true;
+      this.error = null;
+
+      try {
+        const resp = await http.get("/api/models");
+
+        this.carModels = resp.data.models;
+      } catch (e) {
+        this.error = e;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    modelBgText(name) {
+      const tokens = name.split(' ');
+      const numericToken = tokens.find(t => /^[\d.]+$/.test(t));
+      return numericToken ?? tokens[0];
     }
   },
   mounted() {
     this.getAllRoutes();
+    this.getCarModels();
   }
 }
 </script>
@@ -47,7 +70,22 @@ export default {
   <nav class="navbar bg-body-tertiary">
     <div class="container-fluid d-flex flex-row align-items-center">
       <!-- Aside menu -->
-      <button class="btn"><i class="bi bi-list"></i></button>
+      <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"><i class="bi bi-list"></i></button>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+
+          <div id="carModelList" class="vstack gap-2">
+            <h1 class="h4">Models</h1>
+
+            <ModelCard/>
+          </div>
+
+        </div>
+      </div>
 
       <!-- Centered brand icon -->
       <RouterLink class="navbar-brand" :to="{ name: 'home' }">

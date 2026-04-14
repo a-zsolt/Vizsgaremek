@@ -81,8 +81,6 @@ export default {
   </section>
 
   <section class="mt-5" id="modelCards">
-    <h1 class="text-center mb-4">Available models</h1>
-
     <div v-if="isLoading" class="d-flex align-items-center justify-content-center mb-5">
       <div class="d-flex align-items-center gap-2 text-muted">
         <div class="spinner-border spinner-border-sm" role="status"></div>
@@ -93,25 +91,6 @@ export default {
     <div v-else-if="error" class="d-flex align-items-center justify-content-center mb-5">
       <div class="alert alert-danger">
         {{ error }}
-      </div>
-    </div>
-
-    <div v-else class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        <div class="col" v-for="model in carModels" :key="model.id">
-          <div class="card h-100">
-            <!-- <img src="..." class="card-img-top" alt="..."> -->
-            <div class="card-body">
-              <h5 class="card-title">{{ model.name }}</h5>
-              <p class="card-text">{{ model.description }}</p>
-            </div>
-            <div class="card-footer">
-              <RouterLink :to="{ name: 'model', params: { model: model.id } }" class="btn btn-primary">
-                <i class="bi bi-box-arrow-up-right"></i>
-              </RouterLink>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
