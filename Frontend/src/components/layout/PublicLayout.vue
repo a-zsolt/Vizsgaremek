@@ -9,7 +9,7 @@ export default {
 
 <template>
   <NavBar/>
-  <RouterView/>
+  <RouterView :key="$route.name === 'model' ? $route.fullPath : undefined"/>
 </template>
 
 <style scoped>
