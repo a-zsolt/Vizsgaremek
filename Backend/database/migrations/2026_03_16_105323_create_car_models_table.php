@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('base_price');
             $table->text('model_file');
+            $table->text('image_url');
         });
     }
 
