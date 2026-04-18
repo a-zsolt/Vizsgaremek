@@ -41,7 +41,7 @@ export default {
   <main class="row g-0 vh-100 overflow-hidden">
     <!-- Image decoration -->
     <section class="col-xl-9 d-none d-xl-block">
-      <img src="https://live.staticflickr.com/65535/55185589680_76626efe64_6k.jpg?s=eyJpIjo1NTE4NTU4OTY4MCwiZSI6MTc3NTMxNTgxOSwicyI6IjU0ZGNkZmU0YjA5YWU5YTg5MmM3YWY0OTgwN2UwOWM1ZjJlNzBmNWEiLCJ2IjoxfQ" alt="" class="side-image">
+      <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/RegisterImage.jpg" alt="" class="side-image">
     </section>
 
     <!-- Login Panel -->
@@ -130,7 +130,7 @@ export default {
 
 @media (min-width: 768px) and (max-width: 1199.98px) {
   main {
-    background-image: url('https://live.staticflickr.com/65535/55185589680_76626efe64_6k.jpg?s=eyJpIjo1NTE4NTU4OTY4MCwiZSI6MTc3NTMxNTgxOSwicyI6IjU0ZGNkZmU0YjA5YWU5YTg5MmM3YWY0OTgwN2UwOWM1ZjJlNzBmNWEiLCJ2IjoxfQ');
+    background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/RegisterImage.jpg');
     background-size: cover;
     background-position: center;
     align-items: center;
