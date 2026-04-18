@@ -7,7 +7,24 @@ export default {
     return {
       isLoading: true,
       error: null,
-      carModels: []
+      carModels: [],
+      cards: [
+        {
+          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/StepImg1.jpg",
+          title: "You Choose the Car",
+          text: "Browse our selection of iconic Porsche models and pick the one that speaks to you. Filter by model, era, and specification — we'll help you find the perfect match.",
+        },
+        {
+          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/StepImg2.webp",
+          title: "We Order & Receive It",
+          text: "Once you've made your choice, we handle the rest. We source, purchase, and have the car delivered directly to our facility — no hassle, no compromise.",
+        },
+        {
+          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/StepImg3.webp",
+          title: "We Build Your Vision",
+          text: "Our team gets to work. Using your exact configuration and historically accurate parts, we build your Porsche from the ground up — exactly the way you specified it.",
+        },
+      ],
     }
   },
   methods: {
@@ -43,7 +60,7 @@ export default {
     <div class="carousel-inner">
       <div class="carousel-item">
         <div class="ratio ratio-16x9">
-          <img src="https://live.staticflickr.com/65535/55150982291_287b90f8ef_3k.jpg?s=eyJpIjo1NTE1MDk4MjI5MSwiZSI6MTc3NTEzNjkzNiwicyI6IjhjZDA5M2NhZTJlYjM0MjAzNTU3YmZlOWZlYTJkM2MwMGYzMmNkZTQiLCJ2IjoxfQ" class="d-block w-100 object-fit-cover" alt="...">
+          <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/TurboPromo.jpg" class="d-block w-100 object-fit-cover" alt="...">
         </div>
         <div class="carousel-caption d-none d-md-block">
           <h5>First slide label</h5>
@@ -61,7 +78,7 @@ export default {
       </div>
       <div class="carousel-item">
         <div class="ratio ratio-16x9">
-          <img src="https://live.staticflickr.com/65535/55108098348_bfc8a7e1a3_3k.jpg?s=eyJpIjo1NTEwODA5ODM0OCwiZSI6MTc3NTEzNzE4NCwicyI6ImE1Y2I2NDdmM2I4Y2MwY2YwNDQxZjFjZGExMzVmYWYyNDBhNjU4YjgiLCJ2IjoxfQ" class="d-block w-100 object-fit-cover" alt="...">
+          <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/GT3Promo.jpg" class="d-block w-100 object-fit-cover" alt="...">
         </div>
         <div class="carousel-caption d-none d-md-block">
           <h5>Third slide label</h5>
@@ -80,7 +97,7 @@ export default {
   </div>
   </section>
 
-  <section class="mt-5" id="modelCards">
+  <section id="modelCards">
     <div v-if="isLoading" class="d-flex align-items-center justify-content-center mb-5">
       <div class="d-flex align-items-center gap-2 text-muted">
         <div class="spinner-border spinner-border-sm" role="status"></div>
@@ -95,16 +112,21 @@ export default {
     </div>
 
     <div v-else>
-      <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg1.jpg')">
+      <div class="summary text-center py-5 px-3">
+        <h2>Sonderwunsch – Your Dream, Our Craft</h2>
+        <p class="summary-text mx-auto">
+          The Porsche Sonderwunsch programme allows every car to be truly one of a kind.
+          Choose your model, personalise it down to the finest detail, and create the car you've always dreamed of.
+          Whether it's a classic 911 or the modern Taycan – we turn every vision into reality.
+        </p>
+      </div>
+
+      <div class="hero justify-content-end" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg1.jpg')">
         <div class="hero-content">
-          <h1>The 911 Speedster</h1>
-          <p>
-            Porsche enthusiast, designer and Speedster collector made
-            his dream of a 911 Speedster (Type 993) come true via the Sonderwunsch
-            programme. The result is a Factory One-Off car based entirely on the
-            personal vision of the designer.
+          <h1 class="h1-p-shadow">The past, rebuilt your way.</h1>
+          <p class="h1-p-shadow">
+            Choose your model. Pick your options. Relive the golden age of Porsche — one spec at a time.
           </p>
-          <button class="discover-btn">Discover</button>
         </div>
       </div>
 
@@ -114,14 +136,10 @@ export default {
 
       <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg2.jpg')">
         <div class="hero-content">
-          <h1>The 911 Speedster</h1>
-          <p>
-            Porsche enthusiast, designer and Speedster collector made
-            his dream of a 911 Speedster (Type 993) come true via the Sonderwunsch
-            programme. The result is a Factory One-Off car based entirely on the
-            personal vision of the designer.
+          <h1 class="h1-p-shadow">Every detail. Exactly as built.</h1>
+          <p class="h1-p-shadow">
+            Historically accurate factory options across iconic Porsche models. Configure your legend down to the last specification.
           </p>
-          <button class="discover-btn">Discover</button>
         </div>
       </div>
 
@@ -129,21 +147,38 @@ export default {
         <span v-for="n in 20" :key="n">SONDERWUNSCH &nbsp;·&nbsp; </span>
       </div>
 
-      <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg')">
+      <div class="hero justify-content-end" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg')">
         <div class="hero-content">
-          <h1>The 911 Speedster</h1>
-          <p>
-            Porsche enthusiast, designer and Speedster collector made
-            his dream of a 911 Speedster (Type 993) come true via the Sonderwunsch
-            programme. The result is a Factory One-Off car based entirely on the
-            personal vision of the designer.
+          <h1 class="h1-p-shadow">Your vision. Our history.</h1>
+          <p class="h1-p-shadow">
+            Three legendary models. Hundreds of original options. One configurator built for those who know the difference.
           </p>
-          <button class="discover-btn">Discover</button>
         </div>
       </div>
-      </div>
-  </section>
+    </div>
 
+    <div class="py-5">
+      <div class="container">
+
+        <h2 class="text-center fw-bold mb-5">Your path to your Porsche</h2>
+
+        <div class="row g-4">
+          <div v-for="(card, i) in cards" :key="i" class="col-12 col-md-4">
+
+            <div class="card-img-wrap mb-3">
+              <img :src="card.image" :alt="card.title" />
+              <span class="badge-num">0{{ i + 1 }}</span>
+            </div>
+
+            <h5 class="fw-bold mb-2">{{ card.title }}</h5>
+            <p class="text-muted" style="font-size:14px; line-height:1.7;">{{ card.text }}</p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped>
@@ -168,7 +203,7 @@ export default {
 
   .hero-content {
     padding: 0 80px;
-    max-width: 3000px;
+    max-width: 800px;
     color: #fff;
   }
 
@@ -180,10 +215,14 @@ export default {
   }
 
   p {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.65;
     margin-bottom: 2rem;
     opacity: 0.9;
+  }
+
+  .h1-p-shadow {
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9);
   }
 
   .discover-btn {
@@ -210,5 +249,32 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-transform: uppercase;
+  }
+
+  .summary h2 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+
+  .summary-text {
+    max-width: 700px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #555;
+  }
+
+  .card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    aspect-ratio: 4/3;
+  }
+
+  .card-img-wrap img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
   }
 </style>
