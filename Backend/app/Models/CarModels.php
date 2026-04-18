@@ -18,6 +18,7 @@ class CarModels extends Model
         'description',
         'base_price',
         'model_file',
+        'image_url',
     ];
 
     public function carSpecs(): HasOne
