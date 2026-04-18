@@ -108,33 +108,40 @@ export default {
         </div>
       </div>
 
-
-    <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg2.jpg')">
-      <div class="hero-content">
-        <h1>The 911 Speedster</h1>
-        <p>
-          Porsche enthusiast, designer and Speedster collector made
-          his dream of a 911 Speedster (Type 993) come true via the Sonderwunsch
-          programme. The result is a Factory One-Off car based entirely on the
-          personal vision of the designer.
-        </p>
-        <button class="discover-btn">Discover</button>
+      <div class="text-strip bg-dark">
+        <span v-for="n in 20" :key="n">SONDERWUNSCH &nbsp;·&nbsp; </span>
       </div>
-    </div>
 
-    <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg')">
-      <div class="hero-content">
-        <h1>The 911 Speedster</h1>
-        <p>
-          Porsche enthusiast, designer and Speedster collector made
-          his dream of a 911 Speedster (Type 993) come true via the Sonderwunsch
-          programme. The result is a Factory One-Off car based entirely on the
-          personal vision of the designer.
-        </p>
-        <button class="discover-btn">Discover</button>
+      <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg2.jpg')">
+        <div class="hero-content">
+          <h1>The 911 Speedster</h1>
+          <p>
+            Porsche enthusiast, designer and Speedster collector made
+            his dream of a 911 Speedster (Type 993) come true via the Sonderwunsch
+            programme. The result is a Factory One-Off car based entirely on the
+            personal vision of the designer.
+          </p>
+          <button class="discover-btn">Discover</button>
+        </div>
       </div>
-    </div>
-    </div>
+
+      <div class="text-strip bg-dark">
+        <span v-for="n in 20" :key="n">SONDERWUNSCH &nbsp;·&nbsp; </span>
+      </div>
+
+      <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg')">
+        <div class="hero-content">
+          <h1>The 911 Speedster</h1>
+          <p>
+            Porsche enthusiast, designer and Speedster collector made
+            his dream of a 911 Speedster (Type 993) come true via the Sonderwunsch
+            programme. The result is a Factory One-Off car based entirely on the
+            personal vision of the designer.
+          </p>
+          <button class="discover-btn">Discover</button>
+        </div>
+      </div>
+      </div>
   </section>
 
 </template>
@@ -193,5 +200,15 @@ export default {
   .discover-btn:hover {
     background: #fff;
     color: #000;
+  }
+
+  .text-strip {
+    color: #fff;
+    padding: 14px 0;
+    font-size: 13px;
+    letter-spacing: .15em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-transform: uppercase;
   }
 </style>
