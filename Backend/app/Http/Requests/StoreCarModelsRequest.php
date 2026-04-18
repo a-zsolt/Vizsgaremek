@@ -30,6 +30,7 @@ class StoreCarModelsRequest extends FormRequest
             'description' => 'required|string',
             'base_price' => 'required|integer|min:0',
             'model_file' => 'required|string',
+            'image_url' => 'required|string',
         ];
     }
     public function messages()
