@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      error: null,
+      errors: null,
       email: "",
       password: "",
     }
@@ -32,7 +32,7 @@ export default {
           this.$router.push(redirectTo);
         }
       } catch (e) {
-        this.error = e
+        this.errors = e.response.data.errors
       } finally {
         this.isLoading = false
       }
@@ -55,7 +55,13 @@ export default {
       </RouterLink>
 
       <div class="d-flex align-items-center justify-content-center">
+
         <form class="w-100" @submit.prevent="logIn">
+          <div v-if="errors" class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-circle"></i>
+            Email or password entered incorrectly!
+          </div>
+
           <div class="form-floating">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="email"/>
             <label for="floatingInput">Email address</label>
