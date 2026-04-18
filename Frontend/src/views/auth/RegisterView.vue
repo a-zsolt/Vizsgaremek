@@ -1,4 +1,6 @@
 <script>
+import {http} from "@/utils/http.js";
+
 export default {
   name: "RegisterView",
   data() {
@@ -6,6 +8,30 @@ export default {
       name: "",
       email: "",
       password: "",
+      errors: {}
+    }
+  },
+  methods: {
+    async registerUser() {
+      this.isLoading = true
+
+      const newUser = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      }
+
+      try {
+        const resp = await http.post('/api/auth/register', { name: newUser["name"], email: newUser["email"], password: newUser["password"] })
+
+        if (resp.data.success){
+          this.$router.push({name: "login"});
+        }
+      } catch (e) {
+        this.errors = e.response.data.errors
+      } finally {
+        this.isLoading = false
+      }
     }
   }
 }
@@ -25,18 +51,27 @@ export default {
       </RouterLink>
 
       <div class="d-flex align-items-center justify-content-center">
-        <form class="w-100" @submit.prevent="logIn">
+        <form class="w-100" @submit.prevent="registerUser">
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="name"/>
+            <input type="text" :class="{ 'is-invalid': errors['name'] }" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="name"/>
             <label for="floatingInput">Name</label>
+            <div v-for="error in errors['name']" class="invalid-feedback">
+              {{ error }}
+            </div>
           </div>
           <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="email"/>
+            <input type="email" :class="{ 'is-invalid': errors['email'] }" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="email"/>
             <label for="floatingInput">Email address</label>
+            <div v-for="error in errors['email']" class="invalid-feedback">
+              {{ error }}
+            </div>
           </div>
           <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="password"/>
+            <input type="password" :class="{ 'is-invalid': errors['password'] }" class="form-control" id="floatingPassword" placeholder="Password" v-model="password"/>
             <label for="floatingPassword">Password</label>
+            <div v-for="error in errors['password']" class="invalid-feedback">
+              {{ error }}
+            </div>
           </div>
           <div class="form-check text-start my-3">
             <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault"/>
