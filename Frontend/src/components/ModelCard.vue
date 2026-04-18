@@ -58,7 +58,7 @@ export default {
 
     <!-- Car image -->
     <img
-        :src="`/CarPictures/${model.name}.png`"
+        :src="`${model.image_url}`"
         :alt="model.name"
         class="position-absolute pe-none model-card-img"
     >

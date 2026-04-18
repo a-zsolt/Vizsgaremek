@@ -71,7 +71,7 @@ export default {
 
       <!-- Car image -->
       <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-start align-items-md-center justify-content-center pe-none pt-3 pt-md-0">
-        <img :src="`/CarPictures/${info.name}.png`" :alt="info.name" class="hero-img">
+        <img :src="`${info.image_url}`" :alt="info.name" class="hero-img">
       </div>
 
       <!-- Basic info -->
