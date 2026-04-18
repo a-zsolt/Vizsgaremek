@@ -6,8 +6,10 @@ export default {
 
 <template>
   <footer class="porsche-footer py-5 bg-dark">
-    <div class="container-xl px-4 px-md-5">
-
+    <div class="container-xl px-4 px-md-5 ">
+      <div class="text-center mb-5">
+        <a href="#top" style="text-decoration: none; color: gray"><i class="bi bi-arrow-up"></i><br>Scroll up</a>
+      </div>
       <hr class="footer-divider" />
 
       <div class="row g-4 mb-2 text-white">

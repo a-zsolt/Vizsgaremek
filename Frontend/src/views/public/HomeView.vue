@@ -25,6 +25,26 @@ export default {
           text: "Our team gets to work. Using your exact configuration and historically accurate parts, we build your Porsche from the ground up — exactly the way you specified it.",
         },
       ],
+      slides: [
+        {
+          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/TurboPromo.jpg",
+          title: "First slide label",
+          text: "Some representative placeholder content for the first slide.",
+          active: false,
+        },
+        {
+          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/CarreraPromo.jpg",
+          title: "Carrera GT is now available for customization",
+          text: "The holy grail. The le mans designed v10 powered monster is now on our site.",
+          active: true,
+        },
+        {
+          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/GT3Promo.jpg",
+          title: "Third slide label",
+          text: "Some representative placeholder content for the third slide.",
+          active: false,
+        },
+      ],
     }
   },
   methods: {
@@ -57,36 +77,28 @@ export default {
       <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1" class="active" aria-label="Slide 2"></button>
       <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
-    <div class="carousel-inner">
-      <div class="carousel-item">
-        <div class="ratio ratio-16x9">
-          <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/TurboPromo.jpg" class="d-block w-100 object-fit-cover" alt="...">
-        </div>
-        <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
-        </div>
-      </div>
-      <div class="carousel-item active">
-        <div class="ratio ratio-16x9">
-          <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/CarreraPromo.jpg" class="d-block w-100 object-fit-cover" alt="Carrera GT">
-        </div>
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Carrera GT is now available for customization</h5>
-          <p>The holy grail. The le mans designed v10 powered monster is now on our site.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="ratio ratio-16x9">
-          <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/GT3Promo.jpg" class="d-block w-100 object-fit-cover" alt="...">
-        </div>
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Some representative placeholder content for the third slide.</p>
+
+      <div class="carousel-inner">
+        <div
+            v-for="(slide, i) in slides"
+            :key="i"
+            class="carousel-item"
+            :class="{ active: slide.active }"
+        >
+          <div class="ratio ratio-16x9">
+            <img :src="slide.image" class="d-block w-100 object-fit-cover" :alt="slide.title" />
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>{{ slide.title }}</h5>
+            <p>{{ slide.text }}</p>
+            <RouterLink :to="{name: 'model', params: {model: i+1}}" type="button" class="discover-btn mb-4">
+              <i class="bi bi-arrow-right"></i>
+            </RouterLink>
+          </div>
         </div>
       </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev">
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
@@ -123,8 +135,8 @@ export default {
 
       <div class="hero justify-content-end" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg1.jpg')">
         <div class="hero-content">
-          <h1 class="h1-p-shadow">The past, rebuilt your way.</h1>
-          <p class="h1-p-shadow">
+          <h1 class="txt-shadow">The past, rebuilt your way.</h1>
+          <p class="txt-shadow">
             Choose your model. Pick your options. Relive the golden age of Porsche — one spec at a time.
           </p>
         </div>
@@ -136,8 +148,8 @@ export default {
 
       <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg2.jpg')">
         <div class="hero-content">
-          <h1 class="h1-p-shadow">Every detail. Exactly as built.</h1>
-          <p class="h1-p-shadow">
+          <h1 class="txt-shadow">Every detail. Exactly as built.</h1>
+          <p class="txt-shadow">
             Historically accurate factory options across iconic Porsche models. Configure your legend down to the last specification.
           </p>
         </div>
@@ -149,8 +161,8 @@ export default {
 
       <div class="hero justify-content-end" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg')">
         <div class="hero-content">
-          <h1 class="h1-p-shadow">Your vision. Our history.</h1>
-          <p class="h1-p-shadow">
+          <h1 class="txt-shadow">Your vision. Our history.</h1>
+          <p class="txt-shadow">
             Three legendary models. Hundreds of original options. One configurator built for those who know the difference.
           </p>
         </div>
@@ -163,11 +175,10 @@ export default {
         <h2 class="text-center fw-bold mb-5">Your path to your Porsche</h2>
 
         <div class="row g-4">
-          <div v-for="(card, i) in cards" :key="i" class="col-12 col-md-4">
+          <div v-for="card in cards" :key="i" class="col-12 col-md-4">
 
             <div class="card-img-wrap mb-3">
               <img :src="card.image" :alt="card.title" />
-              <span class="badge-num">0{{ i + 1 }}</span>
             </div>
 
             <h5 class="fw-bold mb-2">{{ card.title }}</h5>
@@ -221,7 +232,7 @@ export default {
     opacity: 0.9;
   }
 
-  .h1-p-shadow {
+  .txt-shadow {
     text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9);
   }
 
@@ -229,8 +240,8 @@ export default {
     background: transparent;
     color: #fff;
     border: 1px solid #fff;
-    padding: 12px 28px;
-    font-size: 14px;
+    padding: 6px 20px;
+    font-size: 18px;
     cursor: pointer;
     letter-spacing: 0.04em;
     transition: background 0.2s, color 0.2s;
