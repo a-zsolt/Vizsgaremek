@@ -11,6 +11,7 @@ export default {
       error: null,
       routes: [],
       isLoggedIn: !!localStorage.getItem('token'),
+      abilities: JSON.parse(localStorage.getItem('abilities') || '[]'),
       carModels: []
     }
   },
@@ -53,10 +54,8 @@ export default {
         this.isLoading = false;
       }
     },
-    modelBgText(name) {
-      const tokens = name.split(' ');
-      const numericToken = tokens.find(t => /^[\d.]+$/.test(t));
-      return numericToken ?? tokens[0];
+    avatarUrl(name) {
+      return `https://ui-avatars.com/api/?name=${name}&background=1a1a1a&color=fff&size=128&bold=true`;
     }
   },
   mounted() {
@@ -95,14 +94,15 @@ export default {
       <!-- Profile menu (LoggedIn) -->
       <div v-if="isLoggedIn" class="dropdown text-end">
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
-          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" />
+          <img :src="avatarUrl(user.name)" alt="mdo" width="32" height="32" class="rounded-circle" />
         </a>
         <ul class="dropdown-menu dropdown-menu-end text-small">
           <li><span class="dropdown-item-text">{{ user?.name }}</span></li>
           <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="#">Admin Dashboard</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a v-if="abilities?.includes('admin')" class="dropdown-item" href="#">Admin Dashboard</a></li>
+          <li><RouterLink class="dropdown-item" :to="{name: 'orders-list'}">Orders</RouterLink></li>
+          <li><RouterLink class="dropdown-item" :to="{name: 'configs-list'}">Configs</RouterLink></li>
+          <li><RouterLink class="dropdown-item" :to="{name: 'profile-details'}">Profile</RouterLink></li>
           <li><hr class="dropdown-divider" /></li>
           <li><button class="dropdown-item" @click="logOut">Sign out</button></li>
         </ul>
