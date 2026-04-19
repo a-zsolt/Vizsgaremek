@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(Configs::class, 'config_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
+            $table->string('message')->nullable();
             $table->integer('total_price');
             $table->timestamps();
         });
