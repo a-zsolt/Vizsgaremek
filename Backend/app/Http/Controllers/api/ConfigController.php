@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Configs;
 use App\Http\Requests\StoreConfigsRequest;
 use App\Http\Requests\UpdateConfigsRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ConfigController extends Controller
 {
@@ -30,6 +31,24 @@ class ConfigController extends Controller
             ],
             'count' => $configs->count()
         ], 200);
+    }
+
+    public function myConfigs()
+    {
+        try {
+            $config = Auth::user()->configs()
+                ->with(['carModel', 'colorOption', 'wheelOption', 'interiorOption', 'accessory'])
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Your configs retrieved successfully',
+                'data' => $config,
+                'count' => $config->count()
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
     }
 
     /**
