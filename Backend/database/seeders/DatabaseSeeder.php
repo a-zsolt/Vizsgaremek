@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             WheelOptionsSeeder::class,
             InteriorOptionsSeeder::class,
             AccessoriesSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

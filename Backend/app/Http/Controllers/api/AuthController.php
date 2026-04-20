@@ -7,6 +7,7 @@ use App\Http\Requests\auth\LoginAuthRequest;
 use App\Http\Requests\auth\RegisterAuthRequest;
 use App\Http\Requests\auth\UpdateAuthRequest;
 use App\Models\User;
+use App\Models\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -69,6 +70,42 @@ class AuthController extends Controller
             'abilities' => $request->user()->currentAccessToken()->abilities,
         ]);
     }
+    public function allData()
+    {
+        if (!Auth::user()->tokenCan('manager')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized. Manager access required.',
+            ], 403);
+        }
+        try {
+
+            $users = User::all();
+            $orders = Orders::with([
+                'user',
+                'config',
+                'config.carModel',
+                'config.colorOption',
+                'config.interiorOption',
+                'config.wheelOption',
+                'config.accessory',
+            ])->get();
+
+            return response()->json([
+                "success" => true,
+                "message" => "List all users",
+                "users" => $users,
+                "orders" => $orders,
+                "userCount" => $users->count(),
+                "orderCount" => $orders->count(),
+
+            ]);
+        }catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
 
     public function update(UpdateAuthRequest $request, User $user){
         try {

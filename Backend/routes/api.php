@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('/myOrders', [OrderController::class, 'myOrders']);
     Route::get('/myConfigs', [ConfigController::class, 'myConfigs']);
 
+    Route::get('/auth/allData', [AuthController::class, 'allData']);
     Route::patch('/auth/update/{user}', [AuthController::class, 'update']);
 
     Route::apiResource('orders', OrderController::class);
