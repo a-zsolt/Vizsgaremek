@@ -13,7 +13,15 @@ class StoreOrdersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->tokenCan('user');
+        $user = $this->user();
+
+        // Managers/Admins can create orders for anyone
+        if ($user->tokenCan('manager')) {
+            return true;
+        }
+
+        // Regular users can only create orders for their own user_id
+        return $this->input('user_id') == $user->id;
     }
 
     /**
@@ -27,6 +35,7 @@ class StoreOrdersRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'config_id' => 'required|exists:configs,id',
             'status' => 'required|in:pending,completed,cancelled',
+            'message' => 'nullable|string',
             'total_price' => 'prohibited',
         ];
     }

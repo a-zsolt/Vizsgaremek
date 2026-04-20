@@ -14,8 +14,15 @@ class StoreConfigsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->tokenCan('user');
+        $user = $this->user();
 
+        // Managers/Admins can create configs for anyone
+        if ($user->tokenCan('manager')) {
+            return true;
+        }
+
+        // Regular users can only create configs for their own user_id
+        return $this->input('user_id') == $user->id;
     }
 
     /**

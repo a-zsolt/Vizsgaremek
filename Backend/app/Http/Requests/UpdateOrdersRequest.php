@@ -14,7 +14,6 @@ class UpdateOrdersRequest extends FormRequest
     public function authorize(): bool
     {
         return $this->user()->tokenCan('manager');
-
     }
 
     /**
@@ -28,6 +27,7 @@ class UpdateOrdersRequest extends FormRequest
             'user_id' => 'sometimes|required|exists:users,id',
             'config_id' => 'sometimes|required|exists:configs,id',
             'status' => 'sometimes|required|in:pending,completed,cancelled',
+            'message' => 'sometimes|required',
             'total_price' => 'prohibited',
         ];
     }

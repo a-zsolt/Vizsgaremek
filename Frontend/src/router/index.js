@@ -86,6 +86,12 @@ const routes = [
                 meta: { title: 'Order Details' }
               }
             ]
+          },
+          {
+            path: 'configs',
+            name: 'configs-list',
+            component: () => import('@/views/app/SavedConfigsView.vue'),
+            meta: { title: 'Configure' }
           }
         ]
       },

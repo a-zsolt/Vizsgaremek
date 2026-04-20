@@ -7,6 +7,7 @@ use App\Models\Orders;
 use App\Models\Configs;
 use App\Http\Requests\StoreOrdersRequest;
 use App\Http\Requests\UpdateOrdersRequest;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -15,6 +16,13 @@ class OrderController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->tokenCan('manager')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized. Manager access required.',
+            ], 403);
+        }
+
         try {
             $orders = Orders::all();
         } catch (\Exception $e) {
@@ -31,6 +39,32 @@ class OrderController extends Controller
             ],
             'count' => $orders->count()
         ], 200);
+    }
+
+    /**
+     * Display a listing of the authenticated user's orders.
+     */
+    public function myOrders()
+    {
+        try {
+            $orders = Auth::user()->orders()->with([
+                'config',
+                'config.carModel',
+                'config.colorOption',
+                'config.interiorOption',
+                'config.wheelOption',
+                'config.accessory',
+            ])->get();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Your orders retrieved successfully',
+                'data' => $orders,
+                'count' => $orders->count()
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
     }
 
     /**
