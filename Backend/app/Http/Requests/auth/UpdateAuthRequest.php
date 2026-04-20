@@ -38,7 +38,13 @@ class UpdateAuthRequest extends FormRequest
                 Rule::unique('users', 'name')->ignore($this->route('user')->id),
             ],
             'role' => $this->user()->tokenCan('admin') ? 'sometimes|in:user,admin,manager' : 'prohibited',
-            'email' => 'sometimes|required|email|max:255|unique:users,email,' . $this->user()->id,
+            'email' => [
+                'sometimes',
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($this->route('user')->id),
+            ],
             'password' => 'sometimes|required|string|min:8'
         ];
     }
