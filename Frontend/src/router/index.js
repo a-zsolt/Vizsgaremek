@@ -120,13 +120,20 @@ const routes = [
                       name: 'user-details',
                       component: () => import('@/views/app/admin/AdminUserDetailsView.vue'),
                       meta: { title: 'User Details', roles: ['admin'] },
-                      props: true,
+                      props: route => ({ id: route.params.user }),
                   },
                   {
                       path: 'orders',
                       name: 'orders',
                       component: () => import('@/views/app/admin/AdminOrderListView.vue'),
                       meta: { title: 'Orders', roles: ['admin'] }
+                  },
+                  {
+                      path: 'orders/:order',
+                      name: 'order-details',
+                      component: () => import('@/views/app/admin/AdminOrderDetailsView.vue'),
+                      meta: { title: 'Order', roles: ['admin']},
+                      props: route => ({ id: route.params.order }),
                   }
               ],
           },

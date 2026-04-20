@@ -33,13 +33,11 @@ export default {
           <td class="text-muted">{{ order.config?.car_model?.name }}</td>
           <td class="text-muted">{{ order.message }}</td>
           <td><span class="border px-2 role-badge" :class="statusClass(order.status)" >{{ order.status }}</span></td>
-          <!--
           <td>
-            <RouterLink :to="{ name: 'user-details', params: {user: user.id } }"
+            <RouterLink :to="{ name: 'order-details', params: {order: order.id } }"
                         class="text-dark text-decoration-none btn btn-sm btn-outline-secondary">
               <i class="bi bi-arrow-right"></i></RouterLink>
           </td>
-          -->
         </tr>
         </tbody>
       </table>
