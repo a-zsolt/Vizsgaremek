@@ -107,26 +107,29 @@ const routes = [
             path: 'dashboard',
             name: 'dashboard',
             component: () => import('@/views/app/admin/DashboardView.vue'),
-            meta: { title: 'Dashboard', roles: ['admin'] }
+            meta: { title: 'Dashboard', roles: ['admin'] },
+              children: [
+                  {
+                      path: 'users',
+                      name: 'users-list',
+                      component: () => import('@/views/app/admin/AdminUserView.vue'),
+                      meta: { title: 'Users', roles: ['admin'] }
+                  },
+                  {
+                      path: 'users/:user',
+                      name: 'user-details',
+                      component: () => import('@/views/app/admin/AdminUserDetailsView.vue'),
+                      meta: { title: 'User Details', roles: ['admin'] },
+                      props: true,
+                  },
+                  {
+                      path: 'orders',
+                      name: 'orders',
+                      component: () => import('@/views/app/admin/AdminOrderListView.vue'),
+                      meta: { title: 'Orders', roles: ['admin'] }
+                  }
+              ],
           },
-          {
-            path: 'users',
-            name: 'users-list',
-            component: () => import('@/views/app/admin/AdminUserView.vue'),
-            meta: { title: 'Users', roles: ['admin'] }
-          },
-          {
-            path: 'users/:user',
-            name: 'user-details',
-            component: () => import('@/views/app/admin/AdminUserDetailsView.vue'),
-            meta: { title: 'User Details', roles: ['admin'] }
-          },
-          {
-            path: 'orders',
-            name: 'orders',
-            component: () => import('@/views/app/admin/AdminOrderListView.vue'),
-            meta: { title: 'Orders', roles: ['admin'] }
-          }
         ]
       }
     ]

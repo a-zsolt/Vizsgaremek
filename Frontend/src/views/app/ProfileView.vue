@@ -141,7 +141,6 @@ export default {
                 </RouterLink>
               </div>
             </div>
-
           </div>
         </div>
       </section>

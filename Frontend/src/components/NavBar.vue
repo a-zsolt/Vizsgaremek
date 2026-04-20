@@ -99,7 +99,7 @@ export default {
         <ul class="dropdown-menu dropdown-menu-end text-small">
           <li><span class="dropdown-item-text">{{ user?.name }}</span></li>
           <li><hr class="dropdown-divider" /></li>
-          <li><a v-if="abilities?.includes('admin')" class="dropdown-item" href="#">Admin Dashboard</a></li>
+          <li><RouterLink v-if="abilities?.includes('admin')" class="dropdown-item" :to="{name: 'dashboard'}">Admin Dashboard</RouterLink></li>
           <li><RouterLink class="dropdown-item" :to="{name: 'orders-list'}">Orders</RouterLink></li>
           <li><RouterLink class="dropdown-item" :to="{name: 'configs-list'}">Configs</RouterLink></li>
           <li><RouterLink class="dropdown-item" :to="{name: 'profile-details'}">Profile</RouterLink></li>
