@@ -9,6 +9,7 @@ export default {
     return {
       user: null,
       abilities: [],
+      isEditing: false,
       isLoading: false,
       error: null,
     };
@@ -111,7 +112,7 @@ export default {
           <!-- Left column: details -->
           <div class="col-12 col-md-9 profile-col border-end pe-md-5">
 
-            <RouterView :user="user" :modelBgText="modelBgText" :updatedText="updatedText"/>
+            <RouterView :user="user" :isEditing="isEditing" @profileUpdated="isEditing = !isEditing; fetchProfile()" :modelBgText="modelBgText" :updatedText="updatedText"/>
 
           </div>
 
@@ -121,9 +122,9 @@ export default {
             <div class="profile-section">
               <p class="label-text">QUICK ACTIONS</p>
               <div class="d-flex flex-column gap-2">
-                <RouterLink v-if="this.$route.name === 'profile-details'" :to="{ name: 'profile-details' }" class="quick-link">
+                <a v-if="this.$route.name === 'profile-details'" @click="isEditing = !isEditing" class="quick-link">
                   <span>Edit Details</span> <i class="bi bi-person-gear"></i>
-                </RouterLink>
+                </a>
                 <RouterLink v-else :to="{ name: 'profile-details' }" class="quick-link">
                   <span>Profile Details</span> <span>→</span>
                 </RouterLink>

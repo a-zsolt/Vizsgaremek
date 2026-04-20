@@ -23,7 +23,6 @@ export default {
   methods: {
     scroll(direction) {
       const container = this.$refs.carousel;
-      // Using a fixed card width of 304 (288px width + 16px gap) as per original component logic.
       container.scrollBy({ left: direction * 304, behavior: 'smooth' });
     },
     onScroll() {
