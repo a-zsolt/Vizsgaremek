@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\auth\LoginAuthRequest;
 use App\Http\Requests\auth\RegisterAuthRequest;
+use App\Http\Requests\auth\UpdateAuthRequest;
 use App\Models\User;
 use App\Models\Orders;
 use Illuminate\Http\Request;
@@ -105,5 +106,28 @@ class AuthController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
+
+    public function update(UpdateAuthRequest $request, User $user){
+        try {
+            $data = $request->validated();
+
+            if (empty($data['password'])) {
+                unset($data['password']);
+            }
+
+            $user->update($data);
+        }
+        catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'User updated successfully',
+            'user' => $user,
+        ], 200);
+
     }
 }

@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('/myConfigs', [ConfigController::class, 'myConfigs']);
 
     Route::get('/auth/allData', [AuthController::class, 'allData']);
+    Route::patch('/auth/update/{user}', [AuthController::class, 'update']);
 
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('configs', ConfigController::class)->except(['index', 'show']);
