@@ -27,7 +27,7 @@ export default {
       ],
       slides: [
         {
-          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/TurboPromo.jpg",
+          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/GT3Promo.jpg",
           title: "First slide label",
           text: "Some representative placeholder content for the first slide.",
           active: false,
@@ -39,7 +39,7 @@ export default {
           active: true,
         },
         {
-          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/GT3Promo.jpg",
+          image: "https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/TurboPromo.jpg",
           title: "Third slide label",
           text: "Some representative placeholder content for the third slide.",
           active: false,
