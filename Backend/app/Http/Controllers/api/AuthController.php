@@ -100,12 +100,13 @@ class AuthController extends Controller
                 "orderCount" => $orders->count(),
 
             ]);
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
             ]);
         }
+    }
 
     public function update(UpdateAuthRequest $request, User $user){
         try {
