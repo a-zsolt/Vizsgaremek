@@ -68,9 +68,7 @@ class ConfigController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Config created successfully',
-            'data' => [
-                $config
-            ]
+            'data' => $config
         ], 201);
     }
 
