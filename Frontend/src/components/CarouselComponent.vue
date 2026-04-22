@@ -17,6 +17,7 @@ export default {
   },
   computed: {
     pageCount() {
+      if (!this.items?.length) return 0;
       return Math.max(1, this.items.length - this.visibleCards + 1);
     }
   },

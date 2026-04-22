@@ -40,8 +40,16 @@ class WheelOptionsSeeder extends Seeder
                 'name' => 'BBS LM',
                 'color' => 'Triple Chrome',
                 'material' => 'Aluminum',
-                'size' => 17,
+                'size' => 12,
                 'price' => 25000,
+            ],
+            [
+                'car_model_id' => $turbo930->id,
+                'name' => 'Fuchs',
+                'color' => 'Two tone',
+                'material' => 'Alloy',
+                'size' => 9,
+                'price' => 8500,
             ],
         ];
 

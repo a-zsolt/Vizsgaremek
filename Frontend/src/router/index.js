@@ -20,14 +20,12 @@ const routes = [
         name: 'model',
         component: () => import('@/views/public/ModelView.vue'),
         meta: { title: 'Model' },
-        children: [
-          {
-            path: 'configure',
-            name: 'configure',
-            component: () => import('@/views/public/ConfigView.vue'),
-            meta: { title: 'Configure' }
-          }
-        ]
+      },
+      {
+        path: 'models/:model/configure',
+        name: 'configure',
+        component: () => import('@/views/public/ConfigView.vue'),
+        meta: { title: 'Configure' }
       }
     ]
   },
