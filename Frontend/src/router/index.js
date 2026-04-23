@@ -25,7 +25,7 @@ const routes = [
         path: 'models/:model/configure',
         name: 'configure',
         component: () => import('@/views/public/ConfigView.vue'),
-        meta: { title: 'Configure' }
+        meta: { title: 'Configure', requiresAuth: true }
       }
     ]
   },
