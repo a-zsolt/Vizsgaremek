@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('material');
             $table->integer('size');
             $table->integer('price');
+            $table->string('img_url')->default('');
         });
     }
 

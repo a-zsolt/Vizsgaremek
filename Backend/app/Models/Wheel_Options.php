@@ -17,6 +17,7 @@ class Wheel_Options extends Model
         'material',
         'size',
         'price',
+        'img_url',
     ];
 
     public function carModel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
