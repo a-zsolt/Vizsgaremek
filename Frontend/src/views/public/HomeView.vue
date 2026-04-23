@@ -133,10 +133,12 @@ export default {
         </p>
       </div>
 
-      <div class="hero justify-content-end" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg1.jpg')">
+      <div class="hero justify-content-end img-desc-bg position-relative">
+        <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg1.jpg" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Porsche" />
+        <div class="hero-overlay-left"></div>
         <div class="hero-content">
-          <h1 class="txt-shadow">The past, rebuilt your way.</h1>
-          <p class="txt-shadow">
+          <h1>The past, rebuilt your way.</h1>
+          <p>
             Choose your model. Pick your options. Relive the golden age of Porsche — one spec at a time.
           </p>
         </div>
@@ -146,10 +148,12 @@ export default {
         <span v-for="n in 20" :key="n">SONDERWUNSCH &nbsp;·&nbsp; </span>
       </div>
 
-      <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg2.jpg')">
+      <div class="hero justify-content-end img-desc-bg position-relative">
+        <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg2.jpg" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Porsche" />
+        <div class="hero-overlay-right"></div>
         <div class="hero-content">
-          <h1 class="txt-shadow">Every detail. Exactly as built.</h1>
-          <p class="txt-shadow">
+          <h1>Every detail. Exactly as built.</h1>
+          <p>
             Historically accurate factory options across iconic Porsche models. Configure your legend down to the last specification.
           </p>
         </div>
@@ -159,34 +163,32 @@ export default {
         <span v-for="n in 20" :key="n">SONDERWUNSCH &nbsp;·&nbsp; </span>
       </div>
 
-      <div class="hero justify-content-end" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg')">
+      <div class="hero justify-content-end img-desc-bg position-relative">
+        <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Porsche" />
+        <div class="hero-overlay-left"></div>
         <div class="hero-content">
-          <h1 class="txt-shadow">Your vision. Our history.</h1>
-          <p class="txt-shadow">
+          <h1>Your vision. Our history.</h1>
+          <p>
             Three legendary models. Hundreds of original options. One configurator built for those who know the difference.
           </p>
         </div>
       </div>
     </div>
 
+    <div class="summary">
     <div class="py-5">
       <div class="container">
-
-        <h2 class="text-center fw-bold mb-5">Your path to your Porsche</h2>
-
+        <h2 class="text-center mb-5">Your path to your Porsche</h2>
         <div class="row g-4">
           <div v-for="card in cards" :key="i" class="col-12 col-md-4">
-
             <div class="card-img-wrap mb-3">
               <img :src="card.image" :alt="card.title" />
             </div>
-
-            <h5 class="fw-bold mb-2">{{ card.title }}</h5>
+            <h5 class="summary-text mb-2">{{ card.title }}</h5>
             <p class="text-muted" style="font-size:14px; line-height:1.7;">{{ card.text }}</p>
-
           </div>
         </div>
-
+        </div>
       </div>
     </div>
   </section>
@@ -203,19 +205,57 @@ export default {
     overflow: hidden;
   }
 
+  .carousel-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .carousel-caption {
+    z-index: 2;
+  }
+
   .hero {
+    position: relative;
     min-height: 60vh;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
     display: flex;
     align-items: center;
   }
 
+  .hero img {
+    z-index: 0;
+  }
+
+  .hero-overlay-left, .hero-overlay-right, .hero-content {
+    z-index: 1;
+  }
+
   .hero-content {
+    position: relative;
+    z-index: 2;
     padding: 0 80px;
     max-width: 800px;
     color: #fff;
+  }
+  .hero-overlay-right {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-overlay-left {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, rgba(0,0,0,0.75) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 1;
   }
 
   h1 {
@@ -232,8 +272,12 @@ export default {
     opacity: 0.9;
   }
 
-  .txt-shadow {
-    text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9);
+  .img-desc-bg::after {
+    content: '';
+
+    height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   .discover-btn {

@@ -12,11 +12,11 @@ export default {
       </RouterLink>
     </div>
 
-    <div class="d-flex flex-column align-items-center">
-      <div class="error-number" style="font-size: 403px; line-height: 1;">
+    <div class="d-flex flex-column align-items-center mt-5">
+      <div class="error-number" style="font-size: clamp(10rem, 25vw, 20rem); line-height: 1;">
         <span>403</span>
       </div>
-      <p style="font-size: 35px; margin: -67px;">Not authorized.</p>
+      <p style="font-size: clamp(2rem, 5vw, 3rem); margin: -30px;">Not authorized.</p>
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 200px;">
