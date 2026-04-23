@@ -23,8 +23,8 @@ return new class extends Migration
             $table->foreignIdFor(CarModels::class, 'car_model_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(Color_Options::class, 'color_option_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(Wheel_Options::class, 'wheel_option_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignIdFor(Interior_Options::class, 'interior_option_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignIdFor(Accessories::class, 'accessory_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Interior_Options::class, 'interior_option_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Accessories::class, 'accessory_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->integer('total_price');
             $table->timestamps();
         });

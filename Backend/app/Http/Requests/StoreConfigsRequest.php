@@ -37,8 +37,8 @@ class StoreConfigsRequest extends FormRequest
             'car_model_id' => 'required|exists:car_models,id',
             'color_option_id' => 'required|exists:color__options,id',
             'wheel_option_id' => 'required|exists:wheel__options,id',
-            'interior_option_id' => 'required|exists:interior__options,id',
-            'accessory_id' => 'required|exists:accessories,id',
+            'interior_option_id' => 'exists:interior__options,id',
+            'accessory_id' => 'exists:accessories,id',
             'total_price' => 'required|integer|min:0',
         ];
     }
