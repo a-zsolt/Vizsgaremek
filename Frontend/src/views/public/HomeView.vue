@@ -133,8 +133,7 @@ export default {
         </p>
       </div>
 
-      <div class="hero justify-content-end img-desc-bg position-relative">
-        <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg1.jpg" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Porsche" />
+      <<div class="hero justify-content-end" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg1.jpg')">
         <div class="hero-overlay-left"></div>
         <div class="hero-content">
           <h1>The past, rebuilt your way.</h1>
@@ -148,8 +147,7 @@ export default {
         <span v-for="n in 20" :key="n">SONDERWUNSCH &nbsp;·&nbsp; </span>
       </div>
 
-      <div class="hero justify-content-end img-desc-bg position-relative">
-        <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg2.jpg" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Porsche" />
+      <div class="hero" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg2.jpg')">
         <div class="hero-overlay-right"></div>
         <div class="hero-content">
           <h1>Every detail. Exactly as built.</h1>
@@ -163,8 +161,7 @@ export default {
         <span v-for="n in 20" :key="n">SONDERWUNSCH &nbsp;·&nbsp; </span>
       </div>
 
-      <div class="hero justify-content-end img-desc-bg position-relative">
-        <img src="https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Porsche" />
+      <div class="hero justify-content-end" style="background-image: url('https://pub-699e9b0acc6841d68f0848ac3fce8c7a.r2.dev/Images/HomeImg3.jpg')">
         <div class="hero-overlay-left"></div>
         <div class="hero-content">
           <h1>Your vision. Our history.</h1>
@@ -223,16 +220,11 @@ export default {
   .hero {
     position: relative;
     min-height: 60vh;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
-  }
-
-  .hero img {
-    z-index: 0;
-  }
-
-  .hero-overlay-left, .hero-overlay-right, .hero-content {
-    z-index: 1;
   }
 
   .hero-content {
