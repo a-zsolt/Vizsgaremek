@@ -10,7 +10,7 @@ export default {
       error: null,
       userId:  JSON.parse(localStorage.getItem('user'))?.id,
       config: {
-        color: 1,
+        color: 0,
         wheels: 0,
         interior: {},
         accessories: {}
@@ -25,6 +25,10 @@ export default {
       try {
         const resp = await http.get(`/api/models/${this.$route.params.model}`);
         this.model = resp.data.data;
+
+        this.config.color = this.model.options.colors[0].id;
+        this.config.wheels = this.model.options.wheels[0].id;
+
         console.log(resp.data.data);
       } catch (e) {
         this.error = e;
@@ -49,7 +53,7 @@ export default {
         const accessoryId = Object.entries(this.config.accessories)
             .find(([, checked]) => checked)?.[0] ?? null;
 
-        const payload = {
+        let payload = {
           user_id: this.userId,
           car_model_id: this.info.id,
           color_option_id: this.config.color,
@@ -58,6 +62,10 @@ export default {
           accessory_id: accessoryId ? +accessoryId : null,
           total_price: this.totalPrice
         };
+
+        payload = Object.fromEntries(
+            Object.entries(payload).filter(([, value]) => value !== null)
+        );
 
         const resp = await http.post('/api/configs/', payload);
         this.savedConfigId = resp.data.data?.id ?? null;
@@ -207,7 +215,7 @@ export default {
                     @click="config.wheels = wheel.id"
                 >
                   <div class="option-img bg-light flex-shrink-0">
-                    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRgXLDEtyzLaiBnoHDsMs1B18fXfg5SifvwhrjGeZvXcbVu3C1sCIMKAnskmRwLe6GCln8CA4P3FO9fQRrFGdSrGI_tkxQf" :alt="wheel.name" class="p-1" />
+                    <img :src="wheel.img_url" :alt="wheel.name" class="p-1" />
                   </div>
                   <div class="flex-grow-1 overflow-hidden">
                     <p class="small fw-medium mb-0 text-truncate">{{ wheel.name }}</p>
