@@ -44,7 +44,7 @@ class Configs extends Model
     }
 
     /**
-     * Chosen wheel option.
+     * Chosen wheel options.
      */
     public function wheelOption(): BelongsTo
     {
@@ -52,20 +52,23 @@ class Configs extends Model
     }
 
     /**
-     * Chosen interior option.
+     * Chosen interior options.
      */
     public function interiorOptions(): BelongsToMany
     {
         return $this->belongsToMany(Interior_Options::class, 'config_interior_option', 'config_id', 'interior_option_id');
     }
 
+    /**
+     * Chosen accessories.
+     */
     public function accessories(): BelongsToMany
     {
         return $this->belongsToMany(Accessories::class, 'config_accessory', 'config_id', 'accessory_id');
     }
 
     /**
-     * Optional accessory included.
+     * Calculate the total price of the config.
      */
     public function calculateTotalPrice(): int
     {
