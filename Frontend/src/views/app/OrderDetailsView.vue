@@ -12,6 +12,7 @@ export default {
     }
   },
   methods: {
+    // Fetch order and its config by id from route params
     async fetchOrderDetails() {
       this.isLoading = true;
       this.error = null;
@@ -25,12 +26,14 @@ export default {
         this.isLoading = false;
       }
     },
+    // Format ISO date string as a human-readable date
     formatDate(dateStr) {
       if (!dateStr) return '—';
       return new Date(dateStr).toLocaleDateString('en-US', {
         year: 'numeric', month: 'long', day: 'numeric'
       });
     },
+    // Return a CSS class map for order status coloring
     statusClass(status) {
       return {
         'text-success': status === 'completed',
@@ -39,6 +42,7 @@ export default {
       };
     }
   },
+  // Auto-load order details on component mount
   mounted() {
     this.fetchOrderDetails();
   }
