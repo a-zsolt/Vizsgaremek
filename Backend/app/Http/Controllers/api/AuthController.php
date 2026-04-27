@@ -101,9 +101,9 @@ class AuthController extends Controller
                 'config',
                 'config.carModel',
                 'config.colorOption',
-                'config.interiorOption',
+                'config.interiorOptions',
                 'config.wheelOption',
-                'config.accessory',
+                'config.accessories',
             ])->get();
 
             return response()->json([
