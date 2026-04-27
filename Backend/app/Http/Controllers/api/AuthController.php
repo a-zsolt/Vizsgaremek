@@ -15,6 +15,9 @@ use Illuminate\validation\ValidationException;
 
 class AuthController extends Controller
 {
+    /**
+     * Register a new user account.
+     */
     public function register(RegisterAuthRequest $request){
 
         $user = User::create([
@@ -29,6 +32,9 @@ class AuthController extends Controller
             "user" => $user
         ], 201);
     }
+    /**
+     * Authenticate user and return API token with abilities.
+     */
     public function login(LoginAuthRequest $request){
         if (!Auth::attempt($request->validated())){
             throw ValidationException::withMessages([
@@ -55,6 +61,9 @@ class AuthController extends Controller
             "token" => $token,
         ]);
     }
+    /**
+     * Revoke current access token and log out user.
+     */
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
 
@@ -63,6 +72,9 @@ class AuthController extends Controller
             "message" => "User logged out successfully",
         ]);
     }
+    /**
+     * Verify current token and return user with abilities.
+     */
     public function check(Request $request){
         return response()->json([
             'valid' => true,
@@ -70,6 +82,9 @@ class AuthController extends Controller
             'abilities' => $request->user()->currentAccessToken()->abilities,
         ]);
     }
+    /**
+     * Return all users and orders (manager access required).
+     */
     public function allData()
     {
         if (!Auth::user()->tokenCan('manager')) {
@@ -108,6 +123,9 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Update user data; hash password if provided.
+     */
     public function update(UpdateAuthRequest $request, User $user){
         try {
             $data = $request->validated();

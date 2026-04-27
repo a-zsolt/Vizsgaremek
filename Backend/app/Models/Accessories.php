@@ -17,6 +17,9 @@ class Accessories extends Model
         'price',
     ];
 
+    /**
+     * Parent car model for this accessory.
+     */
     public function carModel(): BelongsTo
     {
         return $this->belongsTo(CarModels::class, 'car_model_id');

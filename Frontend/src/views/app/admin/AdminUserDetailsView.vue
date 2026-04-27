@@ -18,9 +18,11 @@ export default {
     }
   },
   computed: {
+    // Currently selected user (by route param id)
     currentUser() {
       return this.users.find(u => Number(u.id) === Number(this.id)) ?? null;
     },
+    // True if users loaded but the requested user is not found
     isUserMissing() {
       return this.users.length > 0 && !this.currentUser;
     }

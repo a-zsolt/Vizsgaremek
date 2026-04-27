@@ -48,6 +48,7 @@ export default {
     }
   },
   methods: {
+    // Fetch car models to populate homepage sections
     async getCarModels() {
       this.isLoading = true;
       this.error = null;

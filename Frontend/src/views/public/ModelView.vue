@@ -28,6 +28,7 @@ export default {
     }
   },
   methods: {
+    // Fetch model details from API by route param
     async fetchModel() {
       this.isLoading = true;
       this.error = null;

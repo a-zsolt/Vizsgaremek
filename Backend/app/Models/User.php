@@ -49,11 +49,17 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * User's saved configurations.
+     */
     public function configs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Configs::class, 'user_id');
     }
 
+    /**
+     * Orders placed by the user.
+     */
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Orders::class, 'user_id');

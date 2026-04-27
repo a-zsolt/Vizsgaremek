@@ -12,6 +12,7 @@ export default {
     }
   },
   methods: {
+    // Create account and redirect to login on success
     async registerUser() {
       this.isLoading = true
 

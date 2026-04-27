@@ -23,9 +23,11 @@ export default {
     },
   },
   methods: {
+    // Collect all registered routes for menu/offcanvas
     getAllRoutes() {
       this.routes = useRouter().getRoutes();
     },
+    // Call API logout and clear local session
     async logOut() {
       try {
         await http.post('/api/auth/logout');
@@ -40,6 +42,7 @@ export default {
         this.error = e;
       }
     },
+    // Fetch car models for the aside offcanvas list
     async getCarModels() {
       this.isLoading = true;
       this.error = null;

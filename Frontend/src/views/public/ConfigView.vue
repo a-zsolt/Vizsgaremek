@@ -19,6 +19,7 @@ export default {
     }
   },
   methods: {
+    // Load selected car model with specs and options
     async fetchModel() {
       this.isLoading = true;
       this.error = null;
@@ -37,6 +38,7 @@ export default {
       }
     },
 
+    // Toggle an accessory selection by id
     toggleAccessory(id) {
       this.config.accessories = {
         ...this.config.accessories,
@@ -44,6 +46,7 @@ export default {
       };
     },
 
+    // Persist current configuration to backend
     async saveConfig() {
       try {
         // Flatten interior: pick the first selected option per part group
@@ -76,6 +79,7 @@ export default {
       }
     },
 
+    // Create order from saved (or just-saved) configuration
     async placeOrder() {
       try {
         // Save first if not already saved

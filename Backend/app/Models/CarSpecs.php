@@ -22,6 +22,9 @@ class CarSpecs extends Model
         'transmission',
     ];
 
+    /**
+     * Parent car model this spec belongs to.
+     */
     public function carModel(): BelongsTo
     {
         return $this->belongsTo(CarModels::class, 'car_model_id');

@@ -20,6 +20,9 @@ class Wheel_Options extends Model
         'img_url',
     ];
 
+    /**
+     * Parent car model for this wheel option.
+     */
     public function carModel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(CarModels::class, 'car_model_id');
