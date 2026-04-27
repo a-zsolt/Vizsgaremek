@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignIdFor(Wheel_Options::class, 'wheel_option_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(Interior_Options::class, 'interior_option_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(Accessories::class, 'accessory_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->integer('total_price');
+            $table->integer('total_price')->nullable();
             $table->timestamps();
         });
     }

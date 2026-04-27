@@ -46,21 +46,21 @@ export default {
 
     async saveConfig() {
       try {
-        // Flatten interior: pick the first selected option per part group
-        const interiorId = Object.values(this.config.interior).find(id => id != null) ?? null;
+        const interiorIds = Object.values(this.config.interior)
+            .filter(id => id != null)
+            .map(id => +id);
 
-        // Flatten accessories: pick the first checked accessory id
-        const accessoryId = Object.entries(this.config.accessories)
-            .find(([, checked]) => checked)?.[0] ?? null;
+        const accessoryIds = Object.entries(this.config.accessories)
+            .filter(([, checked]) => checked)
+            .map(([id]) => +id);
 
         let payload = {
           user_id: this.userId,
           car_model_id: this.info.id,
           color_option_id: this.config.color,
           wheel_option_id: this.config.wheels || null,
-          interior_option_id: interiorId ? +interiorId : null,
-          accessory_id: accessoryId ? +accessoryId : null,
-          total_price: this.totalPrice
+          interior_option_ids: interiorIds,
+          accessory_ids: accessoryIds,
         };
 
         payload = Object.fromEntries(

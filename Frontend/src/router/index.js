@@ -76,14 +76,12 @@ const routes = [
             name: 'orders-list',
             component: () => import('@/views/app/OrderListView.vue'),
             meta: { title: 'Orders' },
-            children: [
-              {
-                path: ':order',
-                name: 'order-details',
-                component: () => import('@/views/app/OrderDetailsView.vue'),
-                meta: { title: 'Order Details' }
-              }
-            ]
+          },
+          {
+            path: 'orders/:order',
+            name: 'order-details',
+            component: () => import('@/views/app/OrderDetailsView.vue'),
+            meta: { title: 'Order Details' }
           },
           {
             path: 'configs',
@@ -128,7 +126,7 @@ const routes = [
                   },
                   {
                       path: 'orders/:order',
-                      name: 'order-details',
+                      name: 'admin-order-details',
                       component: () => import('@/views/app/admin/AdminOrderDetailsView.vue'),
                       meta: { title: 'Order', roles: ['admin']},
                       props: route => ({ id: route.params.order }),

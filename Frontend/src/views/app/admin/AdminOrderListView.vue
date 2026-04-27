@@ -34,7 +34,7 @@ export default {
           <td class="text-muted">{{ order.message }}</td>
           <td><span class="border px-2 role-badge" :class="statusClass(order.status)" >{{ order.status }}</span></td>
           <td>
-            <RouterLink :to="{ name: 'order-details', params: {order: order.id } }"
+            <RouterLink :to="{ name: 'admin-order-details', params: {order: order.id } }"
                         class="text-dark text-decoration-none btn btn-sm btn-outline-secondary">
               <i class="bi bi-arrow-right"></i></RouterLink>
           </td>

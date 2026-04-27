@@ -51,9 +51,9 @@ class OrderController extends Controller
                 'config',
                 'config.carModel',
                 'config.colorOption',
-                'config.interiorOption',
+                'config.interiorOptions',
                 'config.wheelOption',
-                'config.accessory',
+                'config.accessories',
             ])->get();
 
             return response()->json([
@@ -77,7 +77,7 @@ class OrderController extends Controller
             unset($data['total_price']);
 
             $config = Configs::findOrFail($data['config_id']);
-            $total = (int) ($config->total_price ?? 0);
+            $total = (int) $config->calculateTotalPrice();
 
             $order = new Orders($data);
             $order->total_price = $total;
@@ -103,12 +103,19 @@ class OrderController extends Controller
      */
     public function show(Orders $order)
     {
+        $order->load([
+            'config',
+            'config.carModel',
+            'config.colorOption',
+            'config.interiorOptions',
+            'config.wheelOption',
+            'config.accessories',
+        ]);
+
         return response()->json([
             'success' => true,
             'message' => "Order data",
-            'data' => [
-                $order
-            ],
+            'data' => $order,
         ], 200);
     }
 
@@ -123,7 +130,7 @@ class OrderController extends Controller
 
             if (array_key_exists('config_id', $data)) {
                 $config = Configs::findOrFail($data['config_id']);
-                $order->total_price = (int) ($config->total_price ?? 0);
+                $order->total_price = (int) $config->calculateTotalPrice();
             }
 
             $order->fill($data);
