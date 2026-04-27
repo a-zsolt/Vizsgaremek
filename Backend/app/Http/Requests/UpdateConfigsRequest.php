@@ -29,9 +29,11 @@ class UpdateConfigsRequest extends FormRequest
             'car_model_id' => 'sometimes|required|exists:car_models,id',
             'color_option_id' => 'sometimes|required|exists:color__options,id',
             'wheel_option_id' => 'sometimes|required|exists:wheel__options,id',
-            'interior_option_id' => 'sometimes|required|exists:interior__options,id',
-            'accessory_id' => 'sometimes|required|exists:accessories,id',
-            'total_price' => 'sometimes|required|integer|min:0',
+            'interior_option_ids' => 'array',
+            'interior_option_ids.*' => 'exists:interior__options,id',
+            'accessory_ids' => 'array',
+            'accessory_ids.*' => 'exists:accessories,id',
+            'total_price' => 'nullable|integer|min:0',
         ];
     }
     public function messages()

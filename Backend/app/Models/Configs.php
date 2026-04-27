@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 class Configs extends Model
 {
     protected $table = 'configs';
@@ -14,8 +16,6 @@ class Configs extends Model
         'car_model_id',
         'color_option_id',
         'wheel_option_id',
-        'interior_option_id',
-        'accessory_id',
         'total_price',
     ];
 
@@ -54,16 +54,28 @@ class Configs extends Model
     /**
      * Chosen interior option.
      */
-    public function interiorOption(): BelongsTo
+    public function interiorOptions(): BelongsToMany
     {
-        return $this->belongsTo(Interior_Options::class, 'interior_option_id');
+        return $this->belongsToMany(Interior_Options::class, 'config_interior_option', 'config_id', 'interior_option_id');
+    }
+
+    public function accessories(): BelongsToMany
+    {
+        return $this->belongsToMany(Accessories::class, 'config_accessory', 'config_id', 'accessory_id');
     }
 
     /**
      * Optional accessory included.
      */
-    public function accessory(): BelongsTo
+    public function calculateTotalPrice(): int
     {
-        return $this->belongsTo(Accessories::class, 'accessory_id');
+        $total = $this->carModel->base_price ?? 0;
+        $total += $this->colorOption->price ?? 0;
+        $total += $this->wheelOption->price ?? 0;
+
+        $total += $this->interiorOptions()->sum('price');
+        $total += $this->accessories()->sum('price');
+
+        return (int) $total;
     }
 }

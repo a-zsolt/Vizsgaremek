@@ -40,7 +40,7 @@ class ConfigController extends Controller
     {
         try {
             $config = Auth::user()->configs()
-                ->with(['carModel', 'colorOption', 'wheelOption', 'interiorOption', 'accessory'])
+                ->with(['carModel', 'colorOption', 'wheelOption', 'interiorOptions', 'accessories'])
                 ->get();
 
             return response()->json([
@@ -60,7 +60,22 @@ class ConfigController extends Controller
     public function store(StoreConfigsRequest $request)
     {
         try {
-            $config = Configs::create($request->validated());
+            $data = $request->validated();
+            unset($data['total_price']);
+            $config = Configs::create($data);
+
+            if ($request->has('interior_option_ids')) {
+                $config->interiorOptions()->sync($request->interior_option_ids);
+            }
+
+            if ($request->has('accessory_ids')) {
+                $config->accessories()->sync($request->accessory_ids);
+            }
+
+            $config->total_price = $config->calculateTotalPrice();
+            $config->save();
+
+            $config->load(['interiorOptions', 'accessories']);
         }
         catch (\Exception $e) {
             return response()->json([
@@ -95,7 +110,22 @@ class ConfigController extends Controller
     public function update(UpdateConfigsRequest $request, Configs $config)
     {
         try {
-            $config = Configs::update($request->validated());
+            $data = $request->validated();
+            unset($data['total_price']);
+            $config->update($data);
+
+            if ($request->has('interior_option_ids')) {
+                $config->interiorOptions()->sync($request->interior_option_ids);
+            }
+
+            if ($request->has('accessory_ids')) {
+                $config->accessories()->sync($request->accessory_ids);
+            }
+
+            $config->total_price = $config->calculateTotalPrice();
+            $config->save();
+
+            $config->load(['interiorOptions', 'accessories']);
         }
         catch (\Exception $e) {
             return response()->json([
