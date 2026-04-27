@@ -86,7 +86,7 @@ Az alkalmazás egy relációs adatbázis-modellt használ az adatok tárolásár
 
 ### Adminisztrátorként:
 1. **Bejelentkezés:** Jelentkezzen be admin jogosultsággal rendelkező fiókkal.
-2. **Kezelés:** Az adminisztrációs felületen láthatja az összes beérkezett rendelést, módosíthatja azok állapotát (pl. jóváhagyva, gyártás alatt).
+2. **Kezelés:** Az adminisztrációs felületen láthatja az összes beérkezett rendelést és regisztrált felhasználót, módosíthatja azok állapotát (pl. jóváhagyva, gyártás alatt / email, jogsultságok, jelszó).
 
 #### Teszt admin profil:
 - Email: amdin@gmail.com
