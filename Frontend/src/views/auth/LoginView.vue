@@ -12,6 +12,7 @@ export default {
     }
   },
   methods: {
+    // Submit credentials and handle login flow
     async logIn() {
       this.isLoading = true
 

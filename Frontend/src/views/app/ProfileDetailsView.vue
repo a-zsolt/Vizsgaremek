@@ -16,6 +16,7 @@ export default {
     }
   },
   methods: {
+    // Human-readable date for profile fields
     formatDate(dateStr) {
       if (!dateStr) return "—";
       return new Date(dateStr).toLocaleDateString("en-US", {
@@ -24,6 +25,7 @@ export default {
         day: "numeric",
       });
     },
+    // Submit profile changes (name/email/password)
     async updateProfile() {
       this.isLoading = true;
       this.error = null;

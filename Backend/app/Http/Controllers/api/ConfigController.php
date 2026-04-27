@@ -33,6 +33,9 @@ class ConfigController extends Controller
         ], 200);
     }
 
+    /**
+     * List the authenticated user's configs with related options.
+     */
     public function myConfigs()
     {
         try {

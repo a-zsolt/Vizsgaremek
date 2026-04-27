@@ -18,6 +18,9 @@ class Color_Options extends Model
         'price',
     ];
 
+    /**
+     * Parent car model for this color option.
+     */
     public function carModel(): BelongsTo
     {
         return $this->belongsTo(CarModels::class, 'car_model_id');

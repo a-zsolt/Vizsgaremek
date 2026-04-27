@@ -22,10 +22,12 @@ export default {
     }
   },
   methods: {
+    // Scroll carousel one card left/right
     scroll(direction) {
       const container = this.$refs.carousel;
       container.scrollBy({ left: direction * 304, behavior: 'smooth' });
     },
+    // Update pagination and arrow state on scroll
     onScroll() {
       const container = this.$refs.carousel;
       if (!container) return;
@@ -34,6 +36,7 @@ export default {
       this.canScrollLeft = container.scrollLeft > 0;
       this.canScrollRight = container.scrollLeft < container.scrollWidth - container.offsetWidth - 1;
     },
+    // Smoothly scroll to a specific card index
     scrollTo(index) {
       const container = this.$refs.carousel;
       if (!container) return;
@@ -41,6 +44,7 @@ export default {
       container.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
       this.activeIndex = index;
     },
+    // Recalculate how many cards fit in the viewport
     updateVisibleCards() {
       const container = this.$refs.carousel;
       if (!container || !container.firstElementChild) return;
@@ -49,11 +53,13 @@ export default {
     }
   },
   mounted() {
+    // Initialize layout and listeners after mount
     this.updateVisibleCards();
     this.onScroll();
     window.addEventListener('resize', this.updateVisibleCards);
   },
   beforeUnmount() {
+    // Clean up listeners
     window.removeEventListener('resize', this.updateVisibleCards);
   },
   watch: {

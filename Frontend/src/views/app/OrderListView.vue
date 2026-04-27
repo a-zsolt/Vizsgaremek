@@ -23,6 +23,7 @@ export default {
     }
   },
   methods: {
+    // Fetch authenticated user's orders from API
     async getUserOrders() {
       this.isLoading = true;
       this.error = null;

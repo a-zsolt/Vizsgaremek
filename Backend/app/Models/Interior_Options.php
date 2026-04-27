@@ -18,6 +18,9 @@ class Interior_Options extends Model
         'price',
     ];
 
+    /**
+     * Parent car model for this interior option.
+     */
     public function carModel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(CarModels::class, 'car_model_id');

@@ -15,6 +15,7 @@ export default {
     };
   },
   methods: {
+    // Load current user and abilities from API
     async fetchProfile() {
       this.isLoading = true;
       this.error = null;
@@ -29,10 +30,12 @@ export default {
       }
     },
 
+    // Generate placeholder avatar URL from user name
     avatarUrl(name) {
       return `https://ui-avatars.com/api/?name=${name}&background=1a1a1a&color=fff&size=128&bold=true`;
     },
 
+    // Extract a large background token from model name
     modelBgText(name) {
       if (!name) return '';
       const tokens = name.split(' ');
@@ -40,6 +43,7 @@ export default {
       return numericToken ?? tokens[0];
     },
 
+    // Human-friendly "time ago" text for updated_at
     updatedText(item) {
       const now = new Date();
       const updated = new Date(item.updated_at);
